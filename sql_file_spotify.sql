@@ -35,3 +35,11 @@ case
     order by 2 desc
 
 #What percentage of songs in the 'Top Spotify Songs 2023' were actually released in 2023?
+
+WITH cte AS 
+(SELECT
+COUNT(*) AS total_count,
+SUM(CASE WHEN released_year = 2023 THEN 1 ELSE 0 END) AS count_2023
+FROM spotify_dataset.spotify_2023)
+select (count_2023*100)/total_count as Top_Spotify_Songs_2023
+from cte
